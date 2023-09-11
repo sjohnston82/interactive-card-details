@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <FormContextProvider>
         <body
-          className={`${space_grotesk.className} text-norm bg-light-grayish-violet`}
+          className={`${space_grotesk.className} flex justify-center items-center my-auto h-[100dvh] text-norm bg-[#141414]`}
         >
           {children}
         </body>

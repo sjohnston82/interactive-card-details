@@ -5,11 +5,8 @@ import CardFront from "./_components/CardFront";
 import CardDetailsForm from "./_components/CardDetailsForm";
 
 export default function Home() {
-
-  
-
   return (
-    <main className="flex flex-col min-h-[100dvh] w-full">
+    <main className="flex flex-col  h-[704px] w-[375px] bg-white">
       <div className="relative">
         <Image src={MobileBG} alt="Mobile background image" />
         <div className="">
@@ -18,7 +15,6 @@ export default function Home() {
         </div>
       </div>
       <CardDetailsForm />
-      
     </main>
   );
 }

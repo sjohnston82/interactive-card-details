@@ -20,10 +20,10 @@ const CardFront = () => {
           {cardNumber ? cardNumber : '0000 0000 0000 0000'}
         </div>
         <div className="flex absolute justify-between mx-auto bottom-3 w-[84%] left-5 text-light-grayish-violet">
-          <p className="text-[10px] uppercase">
+          <p className="text-[10px] uppercase tracking-wider">
             {name ? name : "Jane Appleseed"}
           </p>
-          <p className="text-[10px]">00/00</p>
+          <p className="text-[10px] tracking-wider">00/00</p>
         </div>
       </div>
     </div>
