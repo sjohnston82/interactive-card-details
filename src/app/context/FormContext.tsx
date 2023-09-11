@@ -18,8 +18,8 @@ type FormContextType = {
   setExpMonth: React.Dispatch<SetStateAction<number>>;
   expYear: number;
   setExpYear: React.Dispatch<SetStateAction<number>>;
-  cv2: number;
-  setCv2: React.Dispatch<SetStateAction<number>>;
+  cvc: number;
+  setCvc: React.Dispatch<SetStateAction<number>>;
   confirmed: boolean;
   setConfirmed: React.Dispatch<SetStateAction<boolean>>;
 };
@@ -34,10 +34,10 @@ export const FormContext = createContext<FormContextType>(
 
 const FormContextProvider = ({ children }: FormContextProviderProps) => {
   const [name, setName] = useState("");
-  const [cardNumber, setCardNumber] = useState("0000 0000 0000 0000");
+  const [cardNumber, setCardNumber] = useState("");
   const [expMonth, setExpMonth] = useState(0o0);
   const [expYear, setExpYear] = useState(0o0);
-  const [cv2, setCv2] = useState(0o00);
+  const [cvc, setCvc] = useState(0o00);
   const [confirmed, setConfirmed] = useState(false);
 
   return (
@@ -51,8 +51,8 @@ const FormContextProvider = ({ children }: FormContextProviderProps) => {
         setExpMonth,
         expYear,
         setExpYear,
-        cv2,
-        setCv2,
+        cvc,
+        setCvc,
         confirmed,
         setConfirmed,
       }}

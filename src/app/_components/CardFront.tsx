@@ -1,8 +1,13 @@
-import React from 'react'
-import Image from 'next/image'
-import CardFrontImage from '../../../public/images/bg-card-front.png'
+"use client";
+
+import React from "react";
+import Image from "next/image";
+import CardFrontImage from "../../../public/images/bg-card-front.png";
+import { useFormContext } from "../context/FormContext";
 
 const CardFront = () => {
+  const { name, cardNumber } = useFormContext();
+
   return (
     <div className="w-3/4 absolute top-[123px] left-6">
       <div className="">
@@ -11,16 +16,18 @@ const CardFront = () => {
           <span className="rounded-full bg-white w-7 h-7  "></span>
           <span className="rounded-full border border-light-grayish-violet w-3 h-3"></span>
         </div>
-        <div className="absolute text-light-grayish-violet flex justify-center top-20 tracking-widest left-5">
-          0000 0000 0000 0000
+        <div className="absolute text-light-grayish-violet flex justify-center top-20 tracking-[0.125em] left-5">
+          {cardNumber ? cardNumber : '0000 0000 0000 0000'}
         </div>
         <div className="flex absolute justify-between mx-auto bottom-3 w-[84%] left-5 text-light-grayish-violet">
-          <p className="text-[10px] uppercase">Jane Appleseed</p>
+          <p className="text-[10px] uppercase">
+            {name ? name : "Jane Appleseed"}
+          </p>
           <p className="text-[10px]">00/00</p>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default CardFront
+export default CardFront;
