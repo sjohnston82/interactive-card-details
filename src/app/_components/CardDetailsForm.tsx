@@ -5,27 +5,37 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFormContext } from "../context/FormContext";
+import { cn } from "../utils/cn";
+
+const currentYear = Number(new Date().getFullYear().toString().substring(2));
 
 const CardFormSchema = z.object({
   name: z.string().min(2, { message: "Can't be blank" }).max(60),
-  cardNumber: z
-    .number({ description: "Wrong format, numbers only" })
-    .min(16, { message: "Must contain 16 numbers" })
-    .max(16, { message: "Must contain 16 numbers" }),
-  expMonth: z
+  cardNumber: z.string().refine(
+    (value) => {
+      const numericValue = value.replace(/\s/g, "");
+      return numericValue.length === 16;
+    },
+    {
+      message: "Card number must contain 16 numbers.",
+    }
+  ),
+  expMonth: z.coerce
     .number({ description: "Numbers only" })
     .min(2, { message: "Must contain 2 numbers" })
-    .max(2, { message: "Must contain 2 numbers" })
-    .gt(0, { message: "Cannot use 0 for month"})
-    .lt(5, { message: "Month must be between 1 and 12"}),
-  expYear: z
+    // .max(2, { message: "Must contain 2 numbers" })
+    .gt(0, { message: "Cannot use 0 for month" })
+    .lt(13, { message: "Month must be between 1 and 12" }),
+  expYear: z.coerce
     .number({ description: "Numbers only" })
     .min(2, { message: "Must contain 2 numbers" })
-    .max(2, { message: "Must contain 2 numbers" }),
-  cvc: z
+    // .max(2, { message: "Must contain 2 numbers" })
+    .gte(currentYear, { message: "Year must be valid" }),
+
+  cvc: z.coerce
     .number({ description: "Numbers only" })
-    .min(3, { message: "Must contain 3 numbers" })
-    .max(3, { message: "Must contain 3 numbers" }),
+    .min(3, { message: "Must contain 3 numbers" }),
+  // .max(3, { message: "Must contain 3 numbers" }),
 });
 
 type CardInputProps = {
@@ -54,6 +64,10 @@ const CardDetailsForm = () => {
     setExpMonth,
     expYear,
     setExpYear,
+    confirmed,
+    setConfirmed,
+    cvc,
+    setCvc,
   } = useFormContext();
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -82,30 +96,63 @@ const CardDetailsForm = () => {
     setExpMonth(Number(formattedInput));
   };
 
+  const handleExpYear = (e: ChangeEvent<HTMLInputElement>) => {
+    const input: string = e.target.value;
+
+    const numericInput: string = input.replace(/\D/g, "");
+    const formattedInput: string = numericInput.trim().substring(0, 2);
+
+    setExpYear(Number(formattedInput));
+  };
+
+  const handleCvc = (e: ChangeEvent<HTMLInputElement>) => {
+    const input: string = e.target.value;
+
+    const numericInput: string = input.replace(/\D/g, "");
+    const formattedInput: string = numericInput.trim().substring(0, 3);
+
+    setCvc(Number(formattedInput));
+  };
+
+  const onSubmit = (data: CardInputProps) => {
+    console.log(isValid);
+    setConfirmed(true);
+  };
+
   return (
-    <form className="px-6 pt-20 flex flex-col gap-6">
-      <div className="flex flex-col gap-2">
+    <form
+      className="px-6 pt-[88px] flex flex-col gap-[18px]"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <div className="flex flex-col gap-2 relative">
         <label
           htmlFor="name"
-          className="uppercase text-very-dark-violet text-[0.79rem] font-[500] tracking-[0.125em]"
+          className="uppercase text-very-dark-violet text-[0.75rem] font-[500] tracking-[0.125em]"
         >
           Cardholder Name
         </label>
         <input
           type="text"
-          name="name"
           id="name"
+          {...register("name")}
           value={name}
           onChange={handleNameChange}
           placeholder="e.g. Jane Appleseed"
-          className="border rounded-lg px-3 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer"
+          className={cn(
+            "border rounded-lg px-4 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
+            {
+              "border-red-error": errors.name,
+            }
+          )}
         />
         {errors.name?.message && (
-          <p className="text-red-error text-[8px]">{errors.name?.message}</p>
+          <p className="absolute text-red-error text-[8px] -bottom-3 font-semibold">
+            {errors.name?.message}
+          </p>
         )}
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 relative">
         <label
           htmlFor="cardNumber"
           className="uppercase text-very-dark-violet text-[0.8rem] font-[500] tracking-[0.125em]"
@@ -114,13 +161,23 @@ const CardDetailsForm = () => {
         </label>
         <input
           type="text"
-          name="cardNumber"
           id="cardNumber"
+          {...register("cardNumber")}
           value={cardNumber ? cardNumber : ""}
           onChange={handleCardNumberChange}
           placeholder="e.g. 1234 5678 9123 0000"
-          className="border rounded-lg px-3 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer"
+          className={cn(
+            "border rounded-lg px-4 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
+            {
+              "border-red-error": errors.cardNumber,
+            }
+          )}
         />
+        {errors.cardNumber?.message && (
+          <p className="text-red-error text-[8px] absolute -bottom-3 font-semibold">
+            {errors.cardNumber?.message}
+          </p>
+        )}
       </div>
 
       <div className="flex gap-3">
@@ -131,19 +188,49 @@ const CardDetailsForm = () => {
           >
             Exp. Date (MM/YY)
           </label>
-          <div className="flex gap-3">
-            <input
-              type="text"
-              placeholder="MM"
-              value={expMonth ? expMonth : ""}
-              onChange={handleExpMonth}
-              className="border w-[47%] rounded-lg px-3 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer"
-            />
-            <input
-              type="text"
-              placeholder="YY"
-              className="border w-[47%] rounded-lg px-3 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer"
-            />
+          <div className="flex gap-3 ">
+            <div className="flex flex-col relative ">
+              <input
+                type="text"
+                placeholder="MM"
+                id="expMonth"
+                value={expMonth ? expMonth : ""}
+                {...register("expMonth")}
+                onChange={handleExpMonth}
+                className={cn(
+                  "border w-full rounded-lg px-4 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
+                  {
+                    "border-red-error": errors.expMonth,
+                  }
+                )}
+              />
+              {errors.expMonth?.message && (
+                <p className="absolute -bottom-5 text-red-error leading-tight text-[8px] font-semibold">
+                  {errors.expMonth?.message}
+                </p>
+              )}
+            </div>
+            <div className="flex flex-col relative">
+              <input
+                type="text"
+                id="expYear"
+                {...register("expYear")}
+                placeholder="YY"
+                value={expYear ? expYear : ""}
+                onChange={handleExpYear}
+                className={cn(
+                  "border w-full rounded-lg px-4 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
+                  {
+                    "border-red-error": errors.expMonth,
+                  }
+                )}
+              />
+              {errors.expYear?.message && (
+                <p className="text-red-error text-[8px] leading-tight absolute -bottom-5 font-semibold">
+                  {errors.expYear?.message}
+                </p>
+              )}
+            </div>
           </div>
         </div>
 
@@ -154,15 +241,32 @@ const CardDetailsForm = () => {
           >
             CVC
           </label>
-          <input
-            type="text"
-            className="border flex-1 rounded-lg p-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer"
-          />
+          <div className="flex flex-col relative">
+            <input
+              type="text"
+              id="cvc"
+              value={cvc ? cvc : ""}
+              {...register("cvc")}
+              onChange={handleCvc}
+              placeholder="e.g. 123"
+              className={cn(
+                "border w-full rounded-lg px-4 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
+                {
+                  "border-red-error": errors.expMonth,
+                }
+              )}
+            />
+            {errors.cvc?.message && (
+              <p className="absolute -bottom-3 text-red-error text-[8px] font-semibold">
+                {errors.cvc?.message}
+              </p>
+            )}
+          </div>
         </div>
       </div>
       <button
         type="submit"
-        className="bg-very-dark-violet text-light-grayish-violet py-3 rounded-xl mt-1"
+        className="bg-very-dark-violet text-light-grayish-violet py-3 rounded-lg mt-1"
       >
         Confirm
       </button>
