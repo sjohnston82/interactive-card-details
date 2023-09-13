@@ -34,7 +34,7 @@ const Confirmation = () => {
       </div>
       <button
         onClick={handleContinue}
-        className="bg-very-dark-violet lg:mt-[45px] text-light-grayish-violet py-3 lg:py-[13px] rounded-lg mt-1"
+        className="bg-very-dark-violet lg:mt-[45px] text-light-grayish-violet py-3 lg:py-[13px] rounded-lg mt-12"
       >
         Continue
       </button>

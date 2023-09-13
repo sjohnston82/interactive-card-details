@@ -13,7 +13,7 @@ export default function Home() {
   const { confirmed } = useFormContext();
 
   return (
-    <main className="flex flex-col lg:flex-row lg:w-[1440px]  h-[900px] w-[375px] bg-white">
+    <main className="flex flex-col lg:flex-row lg:w-[1440px]  lg:h-[900px] w-[375px] h-[704px] bg-white">
         <Image
           src={DesktopBG}
           alt="Desktop background image"
