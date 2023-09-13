@@ -17,24 +17,24 @@ const CardFormSchema = z.object({
       return numericValue.length === 16;
     },
     {
-      message: "Card number must contain 16 numbers.",
+      message: "Card number must contain 16 numbers",
     }
   ),
   expMonth: z.coerce
     .number({ description: "Numbers only" })
-    .min(2, { message: "Must contain 2 numbers" })
+    .min(2, { message: "Invalid month" })
     // .max(2, { message: "Must contain 2 numbers" })
-    .gt(0, { message: "Cannot use 0 for month" })
-    .lt(13, { message: "Month must be between 1 and 12" }),
+    .gt(0, { message: "Invalid month" })
+    .lt(13, { message: "Invalid month" }),
   expYear: z.coerce
     .number({ description: "Numbers only" })
-    .min(2, { message: "Must contain 2 numbers" })
+    .min(2, { message: "Invalid year" })
     // .max(2, { message: "Must contain 2 numbers" })
-    .gte(currentYear, { message: "Year must be valid" }),
+    .gte(currentYear, { message: "Invalid year" }),
 
   cvc: z.coerce
     .number({ description: "Numbers only" })
-    .min(3, { message: "Must contain 3 numbers" }),
+    .min(3, { message: "Can't be blank" }),
   // .max(3, { message: "Must contain 3 numbers" }),
 });
 
@@ -115,13 +115,12 @@ const CardDetailsForm = () => {
   };
 
   const onSubmit = (data: CardInputProps) => {
-    console.log(isValid);
     setConfirmed(true);
   };
 
   return (
     <form
-      className="px-6 pt-[88px] flex flex-col gap-[18px] lg:gap-[25px] lg:w-[380px] lg:px-0 lg:ml-[350px]  mt-[274px] lg:pt-0 "
+      className="px-6 pt-[88px] flex flex-col gap-[18px] lg:gap-[25px] lg:w-[380px] lg:px-0 lg:ml-[350px]  lg:mt-[274px] lg:pt-0 "
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-2 lg:gap-[7px] relative">
@@ -146,7 +145,7 @@ const CardDetailsForm = () => {
           )}
         />
         {errors.name?.message && (
-          <p className="absolute text-red-error text-[8px] -bottom-3 font-semibold">
+          <p className="absolute text-red-error text-[8px] lg:text-[12px] lg:-bottom-5 -bottom-3 font-semibold">
             {errors.name?.message}
           </p>
         )}
@@ -174,7 +173,7 @@ const CardDetailsForm = () => {
           )}
         />
         {errors.cardNumber?.message && (
-          <p className="text-red-error text-[8px] absolute -bottom-3 font-semibold">
+          <p className="text-red-error lg:text-[12px] lg:-bottom-5 text-[8px] absolute -bottom-3 font-semibold">
             {errors.cardNumber?.message}
           </p>
         )}
@@ -205,7 +204,7 @@ const CardDetailsForm = () => {
                 )}
               />
               {errors.expMonth?.message && (
-                <p className="absolute -bottom-5 text-red-error leading-tight text-[8px] font-semibold">
+                <p className="absolute lg:text-[12px] lg:-bottom-5  -bottom-3 text-red-error leading-tight text-[8px] font-semibold">
                   {errors.expMonth?.message}
                 </p>
               )}
@@ -226,7 +225,7 @@ const CardDetailsForm = () => {
                 )}
               />
               {errors.expYear?.message && (
-                <p className="text-red-error text-[8px] leading-tight absolute -bottom-5 font-semibold">
+                <p className="text-red-error text-[8px] lg:text-[12px] lg:-bottom-5 leading-tight absolute -bottom-3 font-semibold">
                   {errors.expYear?.message}
                 </p>
               )}
@@ -257,7 +256,7 @@ const CardDetailsForm = () => {
               )}
             />
             {errors.cvc?.message && (
-              <p className="absolute -bottom-3 text-red-error text-[8px] font-semibold">
+              <p className="absolute -bottom-3 text-red-error text-[8px] lg:text-[12px] lg:-bottom-5 font-semibold">
                 {errors.cvc?.message}
               </p>
             )}

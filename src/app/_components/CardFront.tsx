@@ -24,7 +24,12 @@ const CardFront = () => {
             {name ? name : "Jane Appleseed"}
           </p>
           <p className="text-[10px] lg:text-[14px] tracking-wider lg:tracking-[0.145em] lg:mr-[64px]">
-            {expMonth ? expMonth : "00"}/{expYear ? expYear : "00"}
+            {expMonth && expMonth.toString().length < 2
+              ? "0" + expMonth
+              : expMonth.toString().length === 2
+              ? expMonth
+              : "00"}
+            /{expYear ? expYear : "00"}
           </p>
         </div>
       </div>

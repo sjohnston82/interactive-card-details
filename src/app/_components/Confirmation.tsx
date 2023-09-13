@@ -24,20 +24,20 @@ const Confirmation = () => {
   };
 
   return (
-    <div className="flex flex-col justify-content px-6">
-      <div className="flex justify-center pt-[84px] flex-col items-center text-[29px] text-very-dark-violet tracking-[0.12em]">
+    <div className="flex flex-col justify-content px-6 lg:w-[380px] lg:px-0 lg:ml-[350px]  lg:mt-[305px]">
+      <div className="flex justify-center pt-[84px] flex-col lg:pt-0 items-center text-[29px] text-very-dark-violet tracking-[0.12em]">
         <Image src={ConfirmationIcon} alt="Check into cash!" />
-        <h1 className="uppercase mt-8">Thank you!</h1>
-        <h2 className="mt-4 text-dark-grayish-violet text-lg tracking-wide text-center">
+        <h1 className="uppercase mt-8 lg:text-[28px]">Thank you!</h1>
+        <h2 className="mt-4 lg:mt-[11px] text-dark-grayish-violet  text-lg tracking-wide lg:tracking-[0.01em]  text-center">
           We&apos;ve added your card details
         </h2>
-        <button
-          onClick={handleContinue}
-          className="bg-very-dark-violet w-full text-norm text-light-grayish-violet py-3 rounded-lg mt-12 cursor-pointer"
-        >
-          Continue
-        </button>
       </div>
+      <button
+        onClick={handleContinue}
+        className="bg-very-dark-violet lg:mt-[45px] text-light-grayish-violet py-3 lg:py-[13px] rounded-lg mt-1"
+      >
+        Continue
+      </button>
     </div>
   );
 };
