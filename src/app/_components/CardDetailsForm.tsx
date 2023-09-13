@@ -121,13 +121,13 @@ const CardDetailsForm = () => {
 
   return (
     <form
-      className="px-6 pt-[88px] flex flex-col gap-[18px]"
+      className="px-6 pt-[88px] flex flex-col gap-[18px] lg:gap-[25px] lg:w-[380px] lg:px-0 lg:ml-[350px]  mt-[274px] lg:pt-0 "
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="flex flex-col gap-2 relative">
+      <div className="flex flex-col gap-2 lg:gap-[7px] relative">
         <label
           htmlFor="name"
-          className="uppercase text-very-dark-violet text-[0.75rem] font-[500] tracking-[0.125em]"
+          className="uppercase lg:font-[700] lg:text-[12px] text-very-dark-violet text-[0.75rem] font-[500] tracking-[0.125em] lg:tracking-[0.145em]"
         >
           Cardholder Name
         </label>
@@ -139,7 +139,7 @@ const CardDetailsForm = () => {
           onChange={handleNameChange}
           placeholder="e.g. Jane Appleseed"
           className={cn(
-            "border rounded-lg px-4 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
+            "border placeholder:text-gray-300 rounded-lg px-4 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
             {
               "border-red-error": errors.name,
             }
@@ -152,10 +152,10 @@ const CardDetailsForm = () => {
         )}
       </div>
 
-      <div className="flex flex-col gap-2 relative">
+      <div className="flex flex-col gap-2 relative lg:gap-[7px]">
         <label
           htmlFor="cardNumber"
-          className="uppercase text-very-dark-violet text-[0.8rem] font-[500] tracking-[0.125em]"
+          className="uppercase lg:tracking-[0.145em] lg:text-[12px] text-very-dark-violet text-[0.8rem] font-[500] tracking-[0.125em] lg:font-[700]"
         >
           Card Number
         </label>
@@ -167,7 +167,7 @@ const CardDetailsForm = () => {
           onChange={handleCardNumberChange}
           placeholder="e.g. 1234 5678 9123 0000"
           className={cn(
-            "border rounded-lg px-4 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
+            "border placeholder:text-gray-300 rounded-lg px-4 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
             {
               "border-red-error": errors.cardNumber,
             }
@@ -180,16 +180,16 @@ const CardDetailsForm = () => {
         )}
       </div>
 
-      <div className="flex gap-3">
-        <div className="flex flex-col gap-2 w-[50%]">
+      <div className="flex gap-3 lg:gap-[18px]">
+        <div className="flex flex-col gap-2 w-[50%] lg:gap-[7px]">
           <label
             htmlFor="expMonth"
-            className="uppercase  text-very-dark-violet text-[0.79rem] font-[500] tracking-[0.125em]"
+            className="uppercase lg:font-[700] lg:tracking-[0.145em] lg:text-[12px]  text-very-dark-violet text-[0.79rem] font-[500] tracking-[0.125em]"
           >
             Exp. Date (MM/YY)
           </label>
-          <div className="flex gap-3 ">
-            <div className="flex flex-col relative ">
+          <div className="flex gap-3  ">
+            <div className="flex flex-col relative lg:flex-1 ">
               <input
                 type="text"
                 placeholder="MM"
@@ -198,7 +198,7 @@ const CardDetailsForm = () => {
                 {...register("expMonth")}
                 onChange={handleExpMonth}
                 className={cn(
-                  "border w-full rounded-lg px-4 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
+                  "border placeholder:text-gray-300 w-full rounded-lg lg:px-[14px] px-4 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
                   {
                     "border-red-error": errors.expMonth,
                   }
@@ -210,7 +210,7 @@ const CardDetailsForm = () => {
                 </p>
               )}
             </div>
-            <div className="flex flex-col relative">
+            <div className="flex flex-col relative lg:flex-1 ">
               <input
                 type="text"
                 id="expYear"
@@ -219,7 +219,7 @@ const CardDetailsForm = () => {
                 value={expYear ? expYear : ""}
                 onChange={handleExpYear}
                 className={cn(
-                  "border w-full rounded-lg px-4 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
+                  "border placeholder:text-gray-300 w-full rounded-lg lg:px-[14px] px-4 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
                   {
                     "border-red-error": errors.expMonth,
                   }
@@ -234,10 +234,10 @@ const CardDetailsForm = () => {
           </div>
         </div>
 
-        <div className="w-1/2 flex flex-col gap-2">
+        <div className="w-1/2 lg:w-[56%]  flex  flex-col gap-2 lg:gap-[7px]">
           <label
             htmlFor="cvc"
-            className="uppercase text-very-dark-violet text-[0.79rem] font-[500] tracking-[0.125em]"
+            className="uppercase lg:font-[700] lg:tracking-[0.145em] text-very-dark-violet text-[0.79rem] lg:text-[12px] font-[500] tracking-[0.125em]"
           >
             CVC
           </label>
@@ -250,7 +250,7 @@ const CardDetailsForm = () => {
               onChange={handleCvc}
               placeholder="e.g. 123"
               className={cn(
-                "border w-full rounded-lg px-4 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
+                "border placeholder:text-gray-300 w-full rounded-lg px-4 lg:px-[14px] py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
                 {
                   "border-red-error": errors.expMonth,
                 }
@@ -266,7 +266,7 @@ const CardDetailsForm = () => {
       </div>
       <button
         type="submit"
-        className="bg-very-dark-violet text-light-grayish-violet py-3 rounded-lg mt-1"
+        className="bg-very-dark-violet lg:mt-[15px] text-light-grayish-violet py-3 lg:py-[13px] rounded-lg mt-1"
       >
         Confirm
       </button>

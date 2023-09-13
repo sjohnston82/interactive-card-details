@@ -3,7 +3,10 @@ import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import FormContextProvider from "./context/FormContext";
 
-const space_grotesk = Space_Grotesk({ subsets: ["latin"], weight: ["500"] });
+const space_grotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Interactive Card Details Form",
