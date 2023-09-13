@@ -138,7 +138,7 @@ const CardDetailsForm = () => {
           onChange={handleNameChange}
           placeholder="e.g. Jane Appleseed"
           className={cn(
-            "border placeholder:text-gray-300 rounded-lg px-4 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
+            "border placeholder:text-gray-300 rounded-lg px-4 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet hover:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
             {
               "border-red-error": errors.name,
             }
@@ -166,7 +166,7 @@ const CardDetailsForm = () => {
           onChange={handleCardNumberChange}
           placeholder="e.g. 1234 5678 9123 0000"
           className={cn(
-            "border placeholder:text-gray-300 rounded-lg px-4 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
+            "border hover:border-very-dark-violet placeholder:text-gray-300 rounded-lg px-4 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
             {
               "border-red-error": errors.cardNumber,
             }
@@ -197,7 +197,7 @@ const CardDetailsForm = () => {
                 {...register("expMonth")}
                 onChange={handleExpMonth}
                 className={cn(
-                  "border placeholder:text-gray-300 w-full rounded-lg lg:px-[14px] px-4 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
+                  "border hover:border-very-dark-violet placeholder:text-gray-300 w-full rounded-lg lg:px-[14px] px-4 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
                   {
                     "border-red-error": errors.expMonth,
                   }
@@ -218,7 +218,7 @@ const CardDetailsForm = () => {
                 value={expYear ? expYear : ""}
                 onChange={handleExpYear}
                 className={cn(
-                  "border placeholder:text-gray-300 w-full rounded-lg lg:px-[14px] px-4 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
+                  "border hover:border-very-dark-violet placeholder:text-gray-300 w-full rounded-lg lg:px-[14px] px-4 py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
                   {
                     "border-red-error": errors.expMonth,
                   }
@@ -249,7 +249,7 @@ const CardDetailsForm = () => {
               onChange={handleCvc}
               placeholder="e.g. 123"
               className={cn(
-                "border placeholder:text-gray-300 w-full rounded-lg px-4 lg:px-[14px] py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
+                "border hover:border-very-dark-violet placeholder:text-gray-300 w-full rounded-lg px-4 lg:px-[14px] py-2 border-light-grayish-violet bg-transparent focus:border-very-dark-violet focus:border focus:outline-none cursor-pointer",
                 {
                   "border-red-error": errors.expMonth,
                 }
